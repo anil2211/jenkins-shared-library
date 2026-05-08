@@ -29,11 +29,11 @@ def call(Map config = [:]) {
 
         sh """
             # Update main QBShop application deployment
-            sed -i "s|image: satyamsri/qbshop-app:.*|image: satyamsri/qbshop-app:${imageTag}|g" ${manifestsPath}/08-qbshop-deployment.yaml
+            sed -i "s|image: anilvcr/qbshop-app:.*|image: anilvcr/qbshop-app:${imageTag}|g" ${manifestsPath}/08-qbshop-deployment.yaml
 
             # Update migration job if present
             if [ -f "${manifestsPath}/12-migration-job.yaml" ]; then
-                sed -i "s|image: satyamsri/qbshop-migration:.*|image: satyamsri/qbshop-migration:${imageTag}|g" ${manifestsPath}/12-migration-job.yaml
+                sed -i "s|image: anilvcr/qbshop-migration:.*|image: anilvcr/qbshop-migration:${imageTag}|g" ${manifestsPath}/12-migration-job.yaml
             fi
 
             # Update Ingress host to asriv.shop
@@ -47,8 +47,8 @@ def call(Map config = [:]) {
             else
                 git add ${manifestsPath}/*.yaml
                 git commit -m "Update QBShop image tags to ${imageTag} and hostname to asriv.shop [ci skip]"
-
-                git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Satyams-git/Qualibytes-Ecommerce.git
+                git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/anil2211/QubiMall-ecommerce.git
+                
                 git push origin HEAD:\${GIT_BRANCH}
             fi
         """
